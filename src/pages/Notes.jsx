@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import db from "../appwrite/databases";
 import NoteForm from "../components/NoteForm";
+import { Query } from "appwrite";
 function Notes() {
   const [notes, setNotes] = useState([]);
 
@@ -9,7 +10,10 @@ function Notes() {
   }, []);
 
   const init = async () => {
-     const response = await db.notes.list();
+     const response = await db.notes.list([
+         Query.orderDesc("$createdAt"), 
+        
+     ]);
      setNotes(response.documents);
   };
 
