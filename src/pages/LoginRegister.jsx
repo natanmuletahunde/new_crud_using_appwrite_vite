@@ -1,11 +1,24 @@
-import React from 'react'
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import LoginForm from "../components/LoginForm";
+import RegisterFrom from "../components/RegisterFrom";
 
 const LoginRegister = () => {
-  return (
-    <div>
-        <h1>LoginRegister</h1>
-    </div>
-  )
-}
+    const navigate = useNavigate();
+    const { user } = useAuth();
+    const [activeForm, setActiveForm] = useState("login");
 
-export default LoginRegister
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    });
+
+    return activeForm === "login" ? (
+        <LoginForm setActiveForm={setActiveForm} />
+    ) : (
+        <RegisterFrom setActiveForm={setActiveForm} />
+    );
+};
+export default LoginRegister;
