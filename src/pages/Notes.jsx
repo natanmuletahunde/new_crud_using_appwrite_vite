@@ -1,10 +1,24 @@
-import React from 'react'
+import { useEffect,useState } from "react"
+import { databases } from "../appwrite/config"
 
-const Notes = () => {
+function Notes(){
+    const [notes, setNotes] = useState([]);
+    useEffect(()=>{
+        init();
+    },[])
+    const init = async ()=>{
+        const response = await databases.listDocuments(
+            import.meta.env.VITE_DATABASE_ID,
+            import.meta.env.VITE_COLLECTION_ID_NOTES
+        );
+        setNotes(response.documents) 
+    }
   return (
-    <div>
-        <h1 className='bg-green'>Notes</h1>  
-    </div>
+   <div>
+        {notes.map((note)=>{
+            <div key={note.$id}>{note.body}</div>
+        })}
+   </div>
   )
 }
 
