@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { account } from "./appwrite/config";
 import Notes from "./pages/Notes";
 import LoginRegister from "./pages/LoginRegister";
 import { PrivateRoutes } from "./components/PrivateRoutes";
@@ -13,9 +11,10 @@ function App() {
                 <AuthProvider>
                     <BrowserRouter>
                         <Routes>
+                           <Route element={<Notes />} path="/" />
                             <Route element={<LoginRegister />} path="/login" />
                             <Route element={<PrivateRoutes />}>
-                                <Route element={<Notes />} path="/" />
+                               
                             </Route>
                         </Routes>
                     </BrowserRouter>
