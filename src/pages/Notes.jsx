@@ -1,25 +1,32 @@
-import { useEffect,useState } from "react"
-import { databases } from "../appwrite/config"
+import { useEffect, useState } from "react";
+import { databases } from "../appwrite/config";
 
-function Notes(){
-    const [notes, setNotes] = useState([]);
-    useEffect(()=>{
-        init();
-    },[])
-    const init = async ()=>{
-        const response = await databases.listDocuments(
-            import.meta.env.VITE_DATABASE_ID,
-            import.meta.env.VITE_COLLECTION_ID_NOTES
-        );
-        setNotes(response.documents) 
+function Notes() {
+  const [notes, setNotes] = useState([]);
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  const init = async () => {
+    try {
+      const response = await databases.listDocuments(
+        import.meta.env.VITE_DATABASE_ID,
+        import.meta.env.VITE_COLLECTION_ID_NOTES
+      );
+      setNotes(response.documents);
+    } catch (error) {
+      console.error("Failed to fetch notes:", error);
     }
+  };
+
   return (
-   <div>
-        {notes.map((note)=>{
-            <div key={note.$id}>{note.body}</div>
-        })}
-   </div>
-  )
+    <div>
+      {notes.map((note) => (
+        <div key={note.$id}>{note.body}</div>
+      ))}
+    </div>
+  );
 }
 
-export default Notes
+export default Notes;
