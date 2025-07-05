@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { databases } from "../appwrite/config";
-
+import db from "../appwrite/databases";
 function Notes() {
   const [notes, setNotes] = useState([]);
 
@@ -9,15 +8,8 @@ function Notes() {
   }, []);
 
   const init = async () => {
-    try {
-      const response = await databases.listDocuments(
-        import.meta.env.VITE_DATABASE_ID,
-        import.meta.env.VITE_COLLECTION_ID_NOTES
-      );
-      setNotes(response.documents);
-    } catch (error) {
-      console.error("Failed to fetch notes:", error);
-    }
+     const response = await db.notes.list();
+     setNotes(response.documents);
   };
 
   return (
