@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
 
-const NoteForm = () => {
+function  NoteForm ({setNotes}){
+     
   return (
-    <div>NoteForm</div>
-  )
-}
+    <form>
+      <input type="text" name="body" placeholder="🤔 What's on the agenda?" />
+    </form>
+  );
+};
 
-export default NoteForm
+export default NoteForm;
