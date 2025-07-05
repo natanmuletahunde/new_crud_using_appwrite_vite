@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import db from "../appwrite/databases";
 import NoteForm from "../components/NoteForm";
-import { Query } from "appwrite";
+import { Query } from "appwrite"; 
 function Notes() {
   const [notes, setNotes] = useState([]);
 
